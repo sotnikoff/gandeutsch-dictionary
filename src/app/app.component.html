@@ -1,0 +1,11 @@
+<h1>Das Gandeutsch-Russisch Perewodilken</h1>
+
+<input type="text" [(ngModel)]="queue" (keyup)="onSearchGdRu()" placeholder="Bitte poschukaiten Sie hier...">
+
+<ul>
+  <li *ngFor="let word of words">
+    <span class="bold">{{ word.gd }}</span><span *ngIf="word.gdArt">, {{ word.gdArt }}</span>
+    -
+    {{ word.ru }} ([{{ word.ruTr }}])
+  </li>
+</ul>
