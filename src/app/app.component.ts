@@ -13,9 +13,14 @@ export class AppComponent implements OnInit {
   queue: string;
   initialWords: Word[];
   words: Word[];
+  searchActive = false;
 
   ngOnInit(): void {
-    this.initialWords =  _.sortBy(require('../assets/dictionary.json'), 'gd', 'asc');
+    this.initialWords =  _.sortBy(require('../assets/dictionary.json'), 'gd', 'asc').map((r: Word) => {
+      r.active = false;
+      return r;
+    });
+    this.initialWords[1].active = true;
     this.words = this.initialWords;
   }
 
@@ -23,5 +28,13 @@ export class AppComponent implements OnInit {
     this.words = this.initialWords.filter(w => {
       return w.gd.toLowerCase().startsWith(this.queue.toLowerCase());
     });
+  }
+
+  onFocusSearch(): void {
+    this.searchActive = true;
+  }
+
+  onBlurSearch(): void {
+    this.searchActive = false;
   }
 }

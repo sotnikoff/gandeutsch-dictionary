@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import './styles/reset.scss';
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Circe', sans-serif;
+  background-image: linear-gradient(225deg, #E6D6FF 0%, #FFC8C2 100%);
+}

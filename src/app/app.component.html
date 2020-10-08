@@ -1,4 +1,4 @@
-<h1>Das Gandeutsch-Russisch Perewodilken</h1>
+<!-- <h1>Das Gandeutsch-Russisch Perewodilken</h1>
 
 <input type="text" [(ngModel)]="queue" (keyup)="onSearchGdRu()" placeholder="Bitte poschukaiten Sie hier...">
 
@@ -8,4 +8,69 @@
     -
     {{ word.ru }} ([{{ word.ruTr }}])
   </li>
-</ul>
+</ul> -->
+
+<div class="wrapper">
+  <div class="left">
+    <div class="logo">
+      <div class="image">
+        <img src="/assets/logo.svg" alt="logo">
+      </div>
+      <div class="text">
+        Der Russisch-Gandeutsche Wörterpereebachter
+      </div>
+    </div>
+
+    <div class="menu">
+      <div class="title">
+        Naprawljachtung
+      </div>
+      <div class="elements">
+        <div class="element">
+          Russisch-Gandeutch
+        </div>
+        <div class="element active">
+          Gandeutch-Russisch
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="center">
+    <div class="search">
+      <div class="icon" [class.active]="searchActive">
+        <img src="/assets/search.svg" alt="search">
+      </div>
+      <input type="text" (focus)="onFocusSearch()" (blur)="onBlurSearch()" [(ngModel)]="queue" (keyup)="onSearchGdRu()" />
+    </div>
+    <div class="words">
+
+      <ng-container *ngFor="let word of words">
+        <div class="element active" *ngIf="word.active">
+          <div class="letter">
+            {{ word.gd.charAt(0) }}
+          </div>
+          <div class="content">
+            <div class="header">
+              <span class="article">{{ word.gdArt }}</span>
+              <span>{{ word.gd }}</span>
+            </div>
+            <div class="description">
+              [{{ word.ruTr }}] - {{ word.ru }}
+            </div>
+          </div>
+        </div>
+        <div class="element" *ngIf="!word.active">
+          <div class="letter">
+            {{ word.gd.charAt(0) }}
+          </div>
+          <div class="content">
+            <div class="word">
+              {{ word.gd }}
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="right"></div>
+</div>

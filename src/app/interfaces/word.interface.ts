@@ -3,4 +3,5 @@ export interface Word {
   ru: string;
   ruTr: string;
   gdArt?: string;
+  active?: boolean;
 }
