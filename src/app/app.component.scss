@@ -189,6 +189,12 @@
           font-weight: 700;
           font-size: 30px;
           color: #4A148C;
+
+          .word {
+            &.small {
+              font-size: 18px;
+            }
+          }
         }
 
         &.active {

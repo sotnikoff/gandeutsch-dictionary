@@ -26,10 +26,10 @@
         Naprawljachtung
       </div>
       <div class="elements">
-        <div class="element">
+        <div class="element" [class.active]="direction === 'ru-gd'" (click)="directionToRuGd()">
           Russisch-Gandeutch
         </div>
-        <div class="element active">
+        <div class="element" [class.active]="direction === 'gd-ru'" (click)="directionToGdRu()">
           Gandeutch-Russisch
         </div>
       </div>
@@ -40,10 +40,9 @@
       <div class="icon" [class.active]="searchActive">
         <img src="/assets/search.svg" alt="search">
       </div>
-      <input type="text" (focus)="onFocusSearch()" (blur)="onBlurSearch()" [(ngModel)]="queue" (keyup)="onSearchGdRu()" />
+      <input type="text" (focus)="onFocusSearch()" (blur)="onBlurSearch()" [(ngModel)]="queue" (keyup)="onSearch()" />
     </div>
     <div class="words">
-
       <ng-container *ngFor="let word of words">
         <div class="element active" *ngIf="word.active">
           <div class="letter">
@@ -59,13 +58,19 @@
             </div>
           </div>
         </div>
-        <div class="element" *ngIf="!word.active">
-          <div class="letter">
+        <div class="element" *ngIf="!word.active" (click)="onClick(word)">
+          <div class="letter" *ngIf="direction === 'gd-ru'">
             {{ word.gd.charAt(0) }}
           </div>
+          <div class="letter" *ngIf="direction === 'ru-gd'">
+            {{ word.ru.charAt(0) }}
+          </div>
           <div class="content">
-            <div class="word">
+            <div class="word" *ngIf="direction === 'gd-ru'">
               {{ word.gd }}
+            </div>
+            <div class="word small" *ngIf="direction === 'ru-gd'">
+              {{ word.ru }}
             </div>
           </div>
         </div>

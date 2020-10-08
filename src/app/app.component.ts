@@ -14,20 +14,48 @@ export class AppComponent implements OnInit {
   initialWords: Word[];
   words: Word[];
   searchActive = false;
+  direction: 'gd-ru' | 'ru-gd';
+
+  constructor() {
+    this.direction = 'gd-ru';
+  }
 
   ngOnInit(): void {
     this.initialWords =  _.sortBy(require('../assets/dictionary.json'), 'gd', 'asc').map((r: Word) => {
       r.active = false;
       return r;
     });
-    this.initialWords[1].active = true;
     this.words = this.initialWords;
   }
 
-  onSearchGdRu(): void {
-    this.words = this.initialWords.filter(w => {
-      return w.gd.toLowerCase().startsWith(this.queue.toLowerCase());
-    });
+  directionToRuGd(): void {
+    if (this.direction === 'ru-gd') {
+      return;
+    }
+    this.initialWords =  _.sortBy(this.initialWords, 'ru', 'asc');
+    this.words = this.initialWords;
+    this.direction = 'ru-gd';
+  }
+
+  directionToGdRu(): void {
+    if (this.direction === 'gd-ru') {
+      return;
+    }
+    this.initialWords =  _.sortBy(this.initialWords, 'gd', 'asc');
+    this.words = this.initialWords;
+    this.direction = 'gd-ru';
+  }
+
+  onSearch(): void {
+    if (this.direction === 'gd-ru') {
+      this.words = this.initialWords.filter(w => {
+        return w.gd.toLowerCase().startsWith(this.queue.toLowerCase());
+      });
+    } else {
+      this.words = this.initialWords.filter(w => {
+        return w.ru.toLowerCase().startsWith(this.queue.toLowerCase());
+      });
+    }
   }
 
   onFocusSearch(): void {
@@ -36,5 +64,12 @@ export class AppComponent implements OnInit {
 
   onBlurSearch(): void {
     this.searchActive = false;
+  }
+
+  onClick(word: Word): void {
+    this.words.forEach(w => {
+      w.active = false;
+    });
+    word.active = true;
   }
 }
